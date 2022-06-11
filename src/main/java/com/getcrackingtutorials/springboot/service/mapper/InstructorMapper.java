@@ -16,7 +16,6 @@ import java.util.List;
 public interface InstructorMapper extends DtoToEntityMapper<InstructorDto, Instructor> {
 
     @Override
-    @Mappings(@Mapping(source="firstName", target = "firstName"))
     Instructor dtoToEntity(InstructorDto dto);
 
     @Override

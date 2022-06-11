@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface InstructorService {
 
-    public List<InstructorDto> findAll();
+    List<InstructorDto> findAll();
 
-    public InstructorDto create(InstructorDto instructorDto);
+    InstructorDto create(InstructorDto instructorDto);
 
-    public InstructorDto update(InstructorDto instructorDto, Long id);
+    InstructorDto update(InstructorDto instructorDto, Long id);
 
-    public  InstructorDto findById(Long id);
+    InstructorDto findById(Long id);
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
-    public InstructorDto findByFirstName(String firstName);
+    InstructorDto findByFirstName(String firstName);
 
 }

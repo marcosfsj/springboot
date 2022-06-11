@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,12 +33,12 @@ public class InstructorController {
     }
 
     @PostMapping
-    InstructorDto create(@RequestBody InstructorDto instructorDto) {
+    InstructorDto create(@Valid @RequestBody InstructorDto instructorDto) {
         return instructorService.create(instructorDto);
     }
 
     @PutMapping("/{id}")
-    InstructorDto update(@RequestBody InstructorDto instructorDto, @PathVariable Long id) {
+    InstructorDto update(@Valid @RequestBody InstructorDto instructorDto, @PathVariable Long id) {
         return instructorService.update(instructorDto, id);
     }
 

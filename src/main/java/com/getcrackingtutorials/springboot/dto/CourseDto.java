@@ -29,7 +29,8 @@ public class CourseDto {
 
     private Long instructorId;
 
-    @Size(min = 10, max = 20, message = "The number of available seats should be between 10 and 20!")
+    @Min(value = 10, message = "The number of available seats should be between 10 and 20!")
+    @Max(value = 20, message = "The number of available seats should be between 10 and 20!")
     private Integer numberOfSeats;
 
 }

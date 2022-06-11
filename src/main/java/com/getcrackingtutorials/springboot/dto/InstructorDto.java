@@ -22,6 +22,8 @@ public class InstructorDto {
     @Length(min = 5, max = 15, message = "First name should be between 7 and 10 characters long!")
     private String firstName;
 
+    private String lastName;
+
     private List<CourseDto> courses;
 
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.getcrackingtutorials.springboot.dto.CourseDto;
 import com.getcrackingtutorials.springboot.exception.NotFoundException;
 import com.getcrackingtutorials.springboot.service.mapper.CourseMapper;
+import com.getcrackingtutorials.springboot.service.mapper.DtoToEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +18,11 @@ import com.getcrackingtutorials.springboot.repository.CourseRepository;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private CourseRepository courseRepository;
-    private CourseMapper courseMapper;
+    private final CourseRepository courseRepository;
+    private final DtoToEntityMapper<CourseDto, Course> courseMapper;
 
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, CourseMapper courseMapper) {
+    public CourseServiceImpl(CourseRepository courseRepository, DtoToEntityMapper<CourseDto, Course> courseMapper) {
         this.courseRepository = courseRepository;
         this.courseMapper = courseMapper;
     }
@@ -30,7 +31,7 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseDto> findAll() {
         return courseRepository.findAll()
                 .stream()
-                .map(course -> courseMapper.entityToDto(course))
+                .map(courseMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -38,7 +39,7 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseDto> findAllByInstructorId(Long instructorId) {
         return courseRepository.findAllByInstructorId(instructorId)
                 .stream()
-                .map(course -> courseMapper.entityToDto(course))
+                .map(courseMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -61,7 +62,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public CourseDto findById(Long id) {
         return courseRepository.findById(id)
-                .map(course -> courseMapper.entityToDto(course))
+                .map(courseMapper::entityToDto)
                 .orElseThrow(() -> new NotFoundException("Course id not found - " + id));
     }
 
@@ -73,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDto findByTitle(String title) {
         return courseRepository.findByTitle(title)
-                .map(course -> courseMapper.entityToDto(course))
+                .map(courseMapper::entityToDto)
                 .orElseThrow(() -> new NotFoundException("Course with title " + title + " not found."));
     }
 

@@ -1,14 +1,10 @@
 package com.getcrackingtutorials.springboot.service;
 
-
-import com.getcrackingtutorials.springboot.dto.CourseDto;
 import com.getcrackingtutorials.springboot.dto.InstructorDto;
-import com.getcrackingtutorials.springboot.entity.Course;
 import com.getcrackingtutorials.springboot.entity.Instructor;
 import com.getcrackingtutorials.springboot.exception.NotFoundException;
-import com.getcrackingtutorials.springboot.repository.CourseRepository;
 import com.getcrackingtutorials.springboot.repository.InstructorRepository;
-import com.getcrackingtutorials.springboot.service.mapper.InstructorMapper;
+import com.getcrackingtutorials.springboot.service.mapper.DtoToEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class InstructorServiceImpl implements InstructorService {
 
-    private InstructorRepository instructorRepository;
-    private InstructorMapper instructorMapper;
+    private final InstructorRepository instructorRepository;
+    private final DtoToEntityMapper<InstructorDto, Instructor> instructorMapper;
 
     @Autowired
-    public InstructorServiceImpl(InstructorRepository instructorRepository, InstructorMapper instructorMapper) {
+    public InstructorServiceImpl(InstructorRepository instructorRepository, DtoToEntityMapper<InstructorDto, Instructor> instructorMapper) {
         this.instructorRepository = instructorRepository;
         this.instructorMapper = instructorMapper;
     }
@@ -32,7 +28,7 @@ public class InstructorServiceImpl implements InstructorService {
     public List<InstructorDto> findAll() {
         return instructorRepository.findAll()
                 .stream()
-                .map(instructor -> instructorMapper.entityToDto(instructor))
+                .map(instructorMapper::entityToDto)
                 .collect(Collectors.toList());
         // return new InstructorDto(instructor.getId(), instructor.getFirstName()); // a set for each property
     }
@@ -56,7 +52,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Transactional
     public InstructorDto findById(Long id) {
         return instructorRepository.findById(id)
-                .map(instructor -> instructorMapper.entityToDto(instructor))
+                .map(instructorMapper::entityToDto)
                 .orElseThrow(() -> new NotFoundException("Instructor id not found - " + id));
     }
 
@@ -68,7 +64,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public InstructorDto findByFirstName(String firstName) {
         return instructorRepository.findByFirstNameIgnoreCase(firstName)
-                .map(instructor -> instructorMapper.entityToDto(instructor))
+                .map(instructorMapper::entityToDto)
                 .orElseThrow(() -> new NotFoundException("Instructor with first name " + firstName + " not found."));
     }
 

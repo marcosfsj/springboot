@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.getcrackingtutorials.springboot.service.CourseService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/courses")
 // different methods to version your API to come
@@ -40,12 +42,12 @@ public class CourseController {
     }
 
     @PostMapping
-    CourseDto create(@RequestBody CourseDto course) {
+    CourseDto create(@Valid @RequestBody CourseDto course) {
         return courseService.create(course);
     }
 
     @PutMapping("/{id}")
-    CourseDto update(@RequestBody CourseDto updatedCourse, @PathVariable Long id) {
+    CourseDto update(@Valid @RequestBody CourseDto updatedCourse, @PathVariable Long id) {
         return courseService.update(updatedCourse, id);
     }
 
