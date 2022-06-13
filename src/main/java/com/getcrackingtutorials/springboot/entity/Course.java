@@ -22,9 +22,6 @@ public class Course {
     @Column(name = "title")
     private String title;
 
-//    @Column(name = "instructor_id")
-//    private Long instructorId;
-
     @Column(name = "number_of_seats")
     private Integer numberOfSeats;
 

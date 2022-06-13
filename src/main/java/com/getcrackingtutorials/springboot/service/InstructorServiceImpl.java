@@ -51,6 +51,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Transactional
     public InstructorDto findById(Long id) {
+        //Method reference
         return instructorRepository.findById(id)
                 .map(instructorMapper::entityToDto)
                 .orElseThrow(() -> new NotFoundException("Instructor id not found - " + id));
