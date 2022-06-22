@@ -1,6 +1,5 @@
 package com.getcrackingtutorials.springboot.controller;
 
-import com.getcrackingtutorials.springboot.dto.CourseDto;
 import com.getcrackingtutorials.springboot.dto.InstructorDto;
 import com.getcrackingtutorials.springboot.service.InstructorService;
 import org.slf4j.Logger;
