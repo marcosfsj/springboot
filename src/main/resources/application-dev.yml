@@ -1,0 +1,27 @@
+# To run the app using this dev profile
+# java -jar app.1.0.0.jar --spring.profiles.active=dev
+
+spring:
+  profiles: dev
+  h2:
+    console:
+      enabled: 'true'
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:getcrackingspringboottutorial
+    driverClassName: org.h2.Driver
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: 'true'
+    show-sql: 'true'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: 'beans,env'
+text:
+  message: "test dev123"

@@ -1,0 +1,19 @@
+# To run the app using this qa profile
+# java -jar app.1.0.0.jar --spring.profiles.active=qa
+
+spring:
+  profiles: qa
+  h2:
+    console:
+      enabled: 'true'
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:getcrackingspringboottutorial-qa
+    driverClassName: org.h2.Driver
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: 'true'
+    show-sql: 'true'
